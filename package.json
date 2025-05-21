@@ -6,9 +6,9 @@
   "scripts": {
     "prepare": "husky install",
     "lint-staged": "lint-staged",
-    "start:local": "LOCAL=true NODE_PATH='./src' nodemon --watch 'src/**' --ext 'ts,json' --exec 'ts-node ./src/index.ts'",
+    "start:local": "cross-env LOCAL=true NODE_PATH='./src' nodemon --watch 'src/**' --ext 'ts,json' --exec 'ts-node ./src/index.ts'",
     "build": "tsc",
-    "start": "yarn build && NODE_PATH='./dist' pm2 start ./dist/index.js -i 2"
+    "start": "yarn build && cross-env NODE_PATH='./dist' pm2 start ./dist/index.js -i 2"
   },
   "husky": {
     "hooks": {

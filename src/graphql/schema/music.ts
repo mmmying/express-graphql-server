@@ -99,7 +99,7 @@ export const resolvers = {
           songlist: playlist,
           songs,
         };
-      } catch (error) {
+      } catch (error: any) {
         error.message = error?.response?.data?.message;
         throw new ApolloError(error);
       }
