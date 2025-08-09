@@ -29,7 +29,14 @@ async function startServer() {
   app.use(Sentry.Handlers.requestHandler());
   app.use(Sentry.Handlers.tracingHandler()); // TracingHandler creates a trace for every incoming request
 
-  app.use(cors());
+  app.use(
+    cors({
+      origin: '*', // 允许的origin
+      credentials: true, // 允许跨域请求携带cookie
+      methods: ['GET', 'POST', 'OPTIONS'], // 允许的HTTP方法
+      allowedHeaders: ['Content-Type', 'Authorization'], // 允许的请求头
+    }),
+  );
 
   // All controllers should live here
   app.get('/', (req, res) => {
