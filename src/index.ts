@@ -68,12 +68,23 @@ async function startServer() {
   await apolloServer.start();
   apolloServer.applyMiddleware({ app });
 
-  await new Promise((resolve: any) => {
-    app.listen({ port: PORT }, resolve);
-  });
-
-  console.log(`🚀 Server ready at http://localhost:${PORT}${apolloServer.graphqlPath}`);
-  return { apolloServer, app };
+  // 在 Vercel 环境中，我们不需要监听端口
+  if (process.env.VERCEL) {
+    // Vercel 环境
+    console.log('🚀 Server ready on Vercel');
+    return { apolloServer, app };
+  } else {
+    // 本地开发环境
+    await new Promise((resolve: any) => {
+      app.listen({ port: PORT }, resolve);
+    });
+    console.log(`🚀 Server ready at http://localhost:${PORT}${apolloServer.graphqlPath}`);
+    return { apolloServer, app };
+  }
 }
 
+// 启动服务器
 startServer();
+
+// 导出 app 以供 Vercel 使用
+export default startServer;

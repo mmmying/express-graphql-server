@@ -10,6 +10,7 @@
     "start:dev": "cross-env NODE_ENV=development NODE_PATH='./src' ts-node ./src/index.ts",
     "start:prod": "cross-env NODE_ENV=production NODE_PATH='./src' ts-node ./src/index.ts",
     "build": "tsc",
+    "vercel-build": "tsc",
     "start": "yarn build && cross-env NODE_PATH='./dist' pm2 start ./dist/index.js -i 2"
   },
   "husky": {
